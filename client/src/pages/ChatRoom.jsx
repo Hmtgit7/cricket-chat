@@ -6,8 +6,6 @@ import { useNavigate } from 'react-router-dom';
 // Components
 import MessageItem from '../components/MessageItem';
 import UserList from '../components/UserList';
-import MessageInput from '../components/MessageInput';
-import ChatHeader from '../components/ChatHeader';
 
 const ChatRoom = () => {
     const { currentUser, logout, updateInterest } = useAuth();
@@ -17,13 +15,11 @@ const ChatRoom = () => {
         typing,
         botTyping,
         loading,
-        error,
         connected,
         connecting,
         sendMessage,
         sendTyping,
         isUserOnline,
-        reconnect
     } = useChat();
 
     const [showSidebar, setShowSidebar] = useState(true);
@@ -256,12 +252,12 @@ const ChatRoom = () => {
 
                         <div className="flex items-center space-x-2">
                             <div className={`inline-flex items-center text-xs px-2 py-1 rounded-full ${connected ? 'text-green-600 bg-green-100' :
-                                    connecting ? 'text-yellow-600 bg-yellow-100' :
-                                        'text-red-600 bg-red-100'
+                                connecting ? 'text-yellow-600 bg-yellow-100' :
+                                    'text-red-600 bg-red-100'
                                 }`}>
                                 <span className={`w-2 h-2 rounded-full mr-1 ${connected ? 'bg-green-500' :
-                                        connecting ? 'bg-yellow-500' :
-                                            'bg-red-500'
+                                    connecting ? 'bg-yellow-500' :
+                                        'bg-red-500'
                                     }`}></span>
                                 {getConnectionStatus()}
                             </div>
