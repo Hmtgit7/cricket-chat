@@ -1,0 +1,49 @@
+services:
+  # Backend API service
+  - type: web
+    name: cricket-chat-api
+    env: node
+    region: singapore
+    buildCommand: cd server && npm install
+    startCommand: cd server && node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRY
+        value: 7d
+      - key: CLIENT_URL
+        fromService:
+          name: cricket-chat-client
+          type: web
+          property: url
+      - key: MONGODB_URI
+        fromDatabase:
+          name: cricket-chat-db
+          property: connectionString
+
+  # Frontend web service
+  - type: web
+    name: cricket-chat-client
+    env: static
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: ./client/build
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: REACT_APP_API_URL
+        fromService:
+          name: cricket-chat-api
+          type: web
+          property: url
+
+databases:
+  # MongoDB database
+  - name: cricket-chat-db
+    plan: starter
+    type: mongo
