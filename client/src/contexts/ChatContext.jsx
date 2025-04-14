@@ -3,8 +3,8 @@ import { io } from 'socket.io-client';
 import axios from 'axios';
 import { useAuth } from './AuthContext';
 
-const API_URL = import.meta.env.REACT_APP_API_URL||'http://localhost:5000/api';
-const SOCKET_URL = import.meta.env.REACT_APP_SOCKET_URL||'http://localhost:5000';
+const API_URL = 'https://cricket-chat-backend.onrender.com/api'|| 'http://localhost:5000/api';
+const SOCKET_URL = 'https://cricket-chat-backend.onrender.com' ||'http://localhost:5000';
 
 // Create chat context
 const ChatContext = createContext();
